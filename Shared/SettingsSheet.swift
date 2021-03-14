@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsSheet: View {
     @State var key = UserDefaults.standard.string(forKey: "key") ?? ""
     @State var tokens = UserDefaults.standard.float(forKey: "max_tokens")
+    @State var temp = UserDefaults.standard.float(forKey: "temperature")
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -35,6 +36,17 @@ struct SettingsSheet: View {
                 Slider(value: $tokens, in: 5...100, step: 1)
                     .onChange(of: tokens, perform: { _ in
                         UserDefaults.standard.setValue(tokens, forKey: "max_tokens")
+                    })
+                Text(String(tokens))
+            }
+            .padding(.bottom, 20)
+            Text("Temperature:")
+                .font(.title2)
+                .bold()
+            HStack {
+                Slider(value: $temp, in: 0.0...1.0, step: 0.1)
+                    .onChange(of: temp, perform: { _ in
+                        UserDefaults.standard.setValue(temp, forKey: "temperature")
                     })
                 Text(String(tokens))
             }
