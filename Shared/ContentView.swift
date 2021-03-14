@@ -26,6 +26,9 @@ struct ContentView: View {
             }
             .padding()
             .padding(.bottom, 100)
+            .onTapGesture{
+                self.hideKeyboard()
+            }
             
             TextEditor(text: $text)
                 
@@ -42,7 +45,10 @@ struct ContentView: View {
                         Spacer()
                         HStack{
                             Spacer()
-                            Button(action: {APIcall(prompt: $text, showAlert: $showAlert, title: $alertTitle, msg: $alertMsg)}, label: {
+                            Button(action: {
+                                APIcall(prompt: $text, showAlert: $showAlert, title: $alertTitle, msg: $alertMsg)
+                                self.hideKeyboard()
+                            }, label: {
                                 Image(systemName: "paperplane.fill")
                                     .foregroundColor(.white)
                                     .padding()
@@ -105,5 +111,12 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
         //            .preferredColorScheme(.dark)
+    }
+}
+
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
