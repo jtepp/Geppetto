@@ -33,7 +33,7 @@ struct SettingsSheet: View {
                 .font(.title2)
                 .bold()
             HStack {
-                Slider(value: $tokens, in: 5...100, step: 1)
+                Slider(value: $tokens, in: 5...600, step: 1)
                     .onChange(of: tokens, perform: { _ in
                         UserDefaults.standard.setValue(tokens, forKey: "max_tokens")
                     })
