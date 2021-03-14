@@ -12,6 +12,7 @@ struct ContentView: View {
         UITextView.appearance().backgroundColor = .clear
     }
     @State var showSettings = false
+    @State var showAlert = false
     @State var text = ""
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct ContentView: View {
                         Spacer()
                         HStack{
                             Spacer()
-                            Button(action: {openapi(prompt: $text)}, label: {
+                            Button(action: {openapi(prompt: $text, showAlert: $showAlert)}, label: {
                                 Image(systemName: "paperplane.fill")
                                     .foregroundColor(.white)
                                     .padding()
@@ -92,6 +93,9 @@ struct ContentView: View {
         .sheet(isPresented: $showSettings){
             SettingsSheet()
         }
+        .alert(isPresented: $showAlert, content: {
+            Alert(title: Text("API key missing"), message: Text("Make sure you paste your API key into the settings page before you start."), primaryButton: .cancel(), secondaryButton: .default(Text("Open settings"), action: {showSettings = true}))
+        })
     }
 }
 
@@ -102,7 +106,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-func openapi(prompt: Binding<String>){
+func openapi(prompt: Binding<String>, showAlert: Binding<Bool>){
     let session = URLSession(configuration: .default)
     let url = URL(string: "https://api.openai.com/v1/engines/davinci/completions")
     var request = URLRequest(url: url!)
@@ -134,7 +138,7 @@ func openapi(prompt: Binding<String>){
                     print("Response data string:\n \(dataString)")
                     
                     if dataString.contains("You didn't provide an API key") {
-                        
+                        showAlert.wrappedValue = true
                     }
                 }
     }
