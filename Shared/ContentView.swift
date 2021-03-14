@@ -63,6 +63,16 @@ struct ContentView: View {
                     }
                     .padding()
                 )
+                .overlay(
+                    ProgressView()
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(
+                                    Color("opposite").opacity(0.4)
+                                )
+                        )
+                )
             Spacer()
             Button(action: {
                 showSettings = true
