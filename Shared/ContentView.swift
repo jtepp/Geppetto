@@ -63,22 +63,6 @@ struct ContentView: View {
                     }
                     .padding()
                 )
-                .overlay(
-                    VStack {
-                        HStack{
-                            if text.isEmpty {
-                                Text("Type to GPT-3")
-                                    .foregroundColor(.secondary)
-                                    .offset(y:-60)
-                            }
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 8)
-                )
             Spacer()
             Button(action: {
                 showSettings = true
