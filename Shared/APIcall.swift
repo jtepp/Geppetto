@@ -15,7 +15,7 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
         let json : [String:Any] = [
             "prompt":prompt.wrappedValue,
             "temperature":0,
-            "max_tokens": 100,
+            "max_tokens": Int(UserDefaults.standard.float(forKey: "max_tokens")),
             "top_p":1,
             "frequency_penalty":0.0,
             "presence_penalty":0.0,

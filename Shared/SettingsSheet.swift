@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsSheet: View {
     @State var key = UserDefaults.standard.string(forKey: "key") ?? ""
+    @State var tokens = UserDefaults.standard.float(forKey: "max_tokens")
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -26,6 +27,17 @@ struct SettingsSheet: View {
                 .onChange(of: key, perform: { _ in
                     UserDefaults.standard.setValue(key, forKey: "key")
                 })
+                .padding(.bottom, 20)
+            Text("Max tokens in response:")
+                .font(.title2)
+                .bold()
+            HStack {
+                Slider(value: $tokens, in: 5...100, step: 1)
+                    .onChange(of: tokens, perform: { _ in
+                        UserDefaults.standard.setValue(tokens, forKey: "max_tokens")
+                    })
+                Text(String(tokens))
+            }
             Spacer()
         }
         .padding()
