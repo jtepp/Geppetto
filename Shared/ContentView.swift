@@ -18,18 +18,17 @@ struct ContentView: View {
     @State var alertMsg = ""
     var body: some View {
         VStack {
-            HStack {
-                Text("Geppetto")
-                    .font(.system(size: 50, weight: .bold, design: .rounded))
-                    .bold()
+                HStack {
+                    Text("Geppetto")
+                        .font(.system(size: 50, weight: .bold, design: .rounded))
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                .onTapGesture{
+                    self.hideKeyboard()
+                }
                 Spacer()
-            }
-            .padding()
-            .padding(.bottom, 100)
-            .onTapGesture{
-                self.hideKeyboard()
-            }
-            
             TextEditor(text: $text)
                 
                 .frame(maxWidth: UIScreen.main.bounds.width-80,
