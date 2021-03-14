@@ -60,36 +60,36 @@ struct ContentView: View {
                     .padding()
                 )
                 .overlay(
-            VStack {
-                HStack{
-                    if text.isEmpty {
-                    Text("Type to GPT-3")
-                        .foregroundColor(.secondary)
-                        .offset(y:-60)
+                    VStack {
+                        HStack{
+                            if text.isEmpty {
+                                Text("Type to GPT-3")
+                                    .foregroundColor(.secondary)
+                                    .offset(y:-60)
+                            }
+                            Spacer()
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                Spacer()
-            }
-            .padding()
-            .padding(.vertical, 8)
-            .padding(.horizontal, 8)
-            )
+                    .padding()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 8)
+                )
             Spacer()
             Button(action: {
-            showSettings = true
+                showSettings = true
             }, label: {
-            Text("Setttings")
-            .foregroundColor(.white)
-            .bold()
+                Text("Setttings")
+                    .foregroundColor(.white)
+                    .bold()
+                    .frame(width: UIScreen.main.bounds.width-80)
+                    .padding()
             })
-            .frame(width: UIScreen.main.bounds.width-80)
-            .padding()
             .background(
-            RoundedRectangle(cornerRadius: 25)
-            .fill(
-            Color("settingsbutton")
-            )
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(
+                        Color("settingsbutton")
+                    )
             )
         }
         .sheet(isPresented: $showSettings){
@@ -104,6 +104,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-//            .preferredColorScheme(.dark)
+        //            .preferredColorScheme(.dark)
     }
 }

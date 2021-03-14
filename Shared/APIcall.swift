@@ -15,6 +15,7 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
         let json : [String:Any] = [
             "prompt":prompt.wrappedValue,
             "temperature":0,
+            "max_tokens": 100,
             "top_p":1,
             "frequency_penalty":0.0,
             "presence_penalty":0.0,
@@ -34,9 +35,7 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
                 }
          
                 // Convert HTTP Response Data to a String
-                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                    
-                    print("Response data string:\n \(dataString)")
+                else if let data = data, let dataString = String(data: data, encoding: .utf8) {
                     
                     if dataString.contains("You didn't provide an API key") {
                         title.wrappedValue = "API key missing"
@@ -47,9 +46,13 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
                         msg.wrappedValue = "Make sure your API key is correct on the settings page"
                         showAlert.wrappedValue = true
                     } else {
-                        title.wrappedValue = "API Error"
-                        msg.wrappedValue = "Try again later"
-                        showAlert.wrappedValue = true
+                    
+                    let json = jsondata(string: dataString)
+                    let choices = json["choices"]! as! [[String:Any]]
+                    let response = choices.last!["text"]! as! String
+                        withAnimation {
+                            prompt.wrappedValue += response
+                        }
                     }
                 }
     }
@@ -57,4 +60,17 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
     } catch {
         print("ERROR")
     }
+}
+
+
+func jsondata(string: String) -> [String:Any] {
+    do {
+    if let json = string.data(using: String.Encoding.utf8){
+            if let jsonData = try JSONSerialization.jsonObject(with: json, options: .allowFragments) as? [String:Any]{
+                return jsonData
+            }
+    }
+    }
+    catch{}
+    return [:]
 }
