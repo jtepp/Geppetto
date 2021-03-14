@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var showSettings = false
     @State var showAlert = false
     @State var text = ""
+    @State var alertTitle = ""
+    @State var alertMsg = ""
     var body: some View {
         VStack {
             HStack {
@@ -41,7 +43,7 @@ struct ContentView: View {
                         Spacer()
                         HStack{
                             Spacer()
-                            Button(action: {openapi(prompt: $text, showAlert: $showAlert)}, label: {
+                            Button(action: {openapi(prompt: $text, showAlert: $showAlert, title: $alertTitle, msg: $alertMsg)}, label: {
                                 Image(systemName: "paperplane.fill")
                                     .foregroundColor(.white)
                                     .padding()
@@ -94,7 +96,7 @@ struct ContentView: View {
             SettingsSheet()
         }
         .alert(isPresented: $showAlert, content: {
-            Alert(title: Text("API key missing"), message: Text("Make sure you paste your API key into the settings page before you start."), primaryButton: .cancel(), secondaryButton: .default(Text("Open settings"), action: {showSettings = true}))
+            Alert(title: Text(alertTitle), message: Text(alertMsg), primaryButton: .cancel(), secondaryButton: .default(Text("Open settings"), action: {showSettings = true}))
         })
     }
 }
@@ -106,7 +108,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-func openapi(prompt: Binding<String>, showAlert: Binding<Bool>){
+func openapi(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<String>, msg: Binding<String>){
     let session = URLSession(configuration: .default)
     let url = URL(string: "https://api.openai.com/v1/engines/davinci/completions")
     var request = URLRequest(url: url!)
@@ -138,6 +140,16 @@ func openapi(prompt: Binding<String>, showAlert: Binding<Bool>){
                     print("Response data string:\n \(dataString)")
                     
                     if dataString.contains("You didn't provide an API key") {
+                        title.wrappedValue = "API key missing"
+                        msg.wrappedValue = "Make sure you paste your API key into the settings page before you start"
+                        showAlert.wrappedValue = true
+                    } else if dataString.contains("Incorrect API key") {
+                        title.wrappedValue = "Incorrect API key"
+                        msg.wrappedValue = "Make sure your API key is correct on the settings page"
+                        showAlert.wrappedValue = true
+                    } else {
+                        title.wrappedValue = "API Error"
+                        msg.wrappedValue = "Try again later"
                         showAlert.wrappedValue = true
                     }
                 }
