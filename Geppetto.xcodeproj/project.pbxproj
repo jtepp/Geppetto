@@ -15,6 +15,8 @@
 		0CF1D86925FDDC9E0016251F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1D86725FDDC9E0016251F /* ContentView.swift */; };
 		0CF1D86B25FDE3E00016251F /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1D86A25FDE3E00016251F /* SettingsSheet.swift */; };
 		0CF1D86C25FDE3E00016251F /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1D86A25FDE3E00016251F /* SettingsSheet.swift */; };
+		0CF1D86E25FDF6030016251F /* APIcall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1D86D25FDF6030016251F /* APIcall.swift */; };
+		0CF1D86F25FDF6030016251F /* APIcall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1D86D25FDF6030016251F /* APIcall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,7 @@
 		0CF1D85825FDD38B0016251F /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		0CF1D86725FDDC9E0016251F /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0CF1D86A25FDE3E00016251F /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
+		0CF1D86D25FDF6030016251F /* APIcall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIcall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 			children = (
 				0CF1D84625FDD38A0016251F /* GeppettoApp.swift */,
 				0CF1D86725FDDC9E0016251F /* ContentView.swift */,
+				0CF1D86D25FDF6030016251F /* APIcall.swift */,
 				0CF1D86A25FDE3E00016251F /* SettingsSheet.swift */,
 				0CF1D84825FDD38B0016251F /* Assets.xcassets */,
 			);
@@ -193,6 +197,7 @@
 			files = (
 				0CF1D86B25FDE3E00016251F /* SettingsSheet.swift in Sources */,
 				0CF1D86825FDDC9E0016251F /* ContentView.swift in Sources */,
+				0CF1D86E25FDF6030016251F /* APIcall.swift in Sources */,
 				0CF1D85925FDD38B0016251F /* GeppettoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +208,7 @@
 			files = (
 				0CF1D86C25FDE3E00016251F /* SettingsSheet.swift in Sources */,
 				0CF1D86925FDDC9E0016251F /* ContentView.swift in Sources */,
+				0CF1D86F25FDF6030016251F /* APIcall.swift in Sources */,
 				0CF1D85A25FDD38B0016251F /* GeppettoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
