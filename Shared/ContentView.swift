@@ -59,10 +59,9 @@ struct ContentView: View {
                 .overlay(
             VStack {
                 HStack{
-                    Text("Type to GPT-3:")
-                        .foregroundColor(text.isEmpty ? .secondary : .clear)
+                    Text(text.isEmpty ? "Type to GPT-3:" : "")
+                        .foregroundColor(.secondary)
                         .offset(y:-60)
-                        .animation(.easeOut)
                     Spacer()
                 }
                 Spacer()
