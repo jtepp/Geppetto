@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<String>, msg: Binding<String>){
+func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<String>, msg: Binding<String>, loading: Binding<Bool>){
     let session = URLSession(configuration: .default)
     let url = URL(string: "https://api.openai.com/v1/engines/davinci/completions")
     var request = URLRequest(url: url!)
+    loading.wrappedValue = true
     do {
         let json : [String:Any] = [
             "prompt":prompt.wrappedValue,
@@ -52,6 +53,7 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
                     let response = choices.last!["text"]! as! String
                         withAnimation {
                             prompt.wrappedValue += response
+                            loading.wrappedValue = false
                         }
                     }
                 }
@@ -60,6 +62,7 @@ func APIcall(prompt: Binding<String>, showAlert: Binding<Bool>, title: Binding<S
     } catch {
         print("ERROR")
     }
+    
 }
 
 

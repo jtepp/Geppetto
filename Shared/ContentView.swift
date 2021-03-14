@@ -16,54 +16,58 @@ struct ContentView: View {
     @State var text = ""
     @State var alertTitle = ""
     @State var alertMsg = ""
+    @State var loading = false
     var body: some View {
         VStack {
-                HStack {
-                    Text("Geppetto")
-                        .font(.system(size: 50, weight: .bold, design: .rounded))
-                        .bold()
-                    Spacer()
-                }
-                .padding()
-                .onTapGesture{
-                    self.hideKeyboard()
-                }
+            HStack {
+                Text("Geppetto")
+                    .font(.system(size: 50, weight: .bold, design: .rounded))
+                    .bold()
                 Spacer()
-            TextEditor(text: $text)
-                
-                .frame(maxWidth: UIScreen.main.bounds.width-80,
-                       minHeight: 100,
-                       maxHeight: UIScreen.main.bounds.height-500, alignment: .topLeading)
-                .padding()
-                .background(
-                    Color("silver")
-                )
-                .cornerRadius(25)
-                .overlay(
-                    VStack {
-                        Spacer()
-                        HStack{
-                            Spacer()
-                            Button(action: {
-                                APIcall(prompt: $text, showAlert: $showAlert, title: $alertTitle, msg: $alertMsg)
-                                self.hideKeyboard()
-                            }, label: {
-                                Image(systemName: "paperplane.fill")
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(
-                                        Circle()
-                                            .fill(
-                                                Color.black
-                                            )
-                                    )
-                            })
-                            .shadow(radius: 10)
-                        }
-                    }
+            }
+            .padding()
+            .onTapGesture{
+                self.hideKeyboard()
+            }
+            Spacer()
+            ZStack {
+                TextEditor(text: $text)
+                    
+                    .frame(maxWidth: UIScreen.main.bounds.width-80,
+                           minHeight: 100,
+                           maxHeight: UIScreen.main.bounds.height-500, alignment: .topLeading)
                     .padding()
-                )
-                .overlay(
+                    .background(
+                        Color("silver")
+                    )
+                    .cornerRadius(25)
+                    .overlay(
+                        VStack {
+                            Spacer()
+                            HStack{
+                                Spacer()
+                                Button(action: {
+                                    if !loading {
+                                        APIcall(prompt: $text, showAlert: $showAlert, title: $alertTitle, msg: $alertMsg, loading: $loading)
+                                        self.hideKeyboard()
+                                    }
+                                }, label: {
+                                    Image(systemName: "paperplane.fill")
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(
+                                            Circle()
+                                                .fill(
+                                                    Color.black
+                                                )
+                                        )
+                                })
+                                .shadow(radius: 10)
+                            }
+                        }
+                        .padding()
+                    )
+                if loading {
                     ProgressView()
                         .padding()
                         .background(
@@ -72,7 +76,8 @@ struct ContentView: View {
                                     Color("opposite").opacity(0.4)
                                 )
                         )
-                )
+                }
+            }
             Spacer()
             Button(action: {
                 showSettings = true
