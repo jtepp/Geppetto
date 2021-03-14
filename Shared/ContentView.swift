@@ -25,6 +25,7 @@ struct ContentView: View {
             .padding(.bottom, 100)
             
             TextEditor(text: $text)
+                
                 .frame(maxWidth: UIScreen.main.bounds.width-80,
                        minHeight: 100,
                        idealHeight: 200,
@@ -58,8 +59,10 @@ struct ContentView: View {
                 .overlay(
             VStack {
                 HStack{
-                    Text(text.isEmpty ? "Type to GPT-3..." : "")
-                        .foregroundColor(.secondary)
+                    Text("Type to GPT-3:")
+                        .foregroundColor(text.isEmpty ? .secondary : .clear)
+                        .offset(y:-60)
+                        .animation(.easeOut)
                     Spacer()
                 }
                 Spacer()
