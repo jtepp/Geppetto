@@ -31,7 +31,6 @@ struct ContentView: View {
                 
                 .frame(maxWidth: UIScreen.main.bounds.width-80,
                        minHeight: 100,
-                       idealHeight: 200,
                        maxHeight: UIScreen.main.bounds.height-500, alignment: .topLeading)
                 .padding()
                 .background(
@@ -91,6 +90,7 @@ struct ContentView: View {
                         Color("settingsbutton")
                     )
             )
+            .padding(.bottom)
         }
         .sheet(isPresented: $showSettings){
             SettingsSheet()

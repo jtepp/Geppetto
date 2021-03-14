@@ -37,7 +37,7 @@ struct SettingsSheet: View {
                     .onChange(of: tokens, perform: { _ in
                         UserDefaults.standard.setValue(tokens, forKey: "max_tokens")
                     })
-                Text(String(tokens))
+                Text(String(Int(tokens)))
             }
             .padding(.bottom, 20)
             Text("Temperature:")
@@ -48,7 +48,7 @@ struct SettingsSheet: View {
                     .onChange(of: temp, perform: { _ in
                         UserDefaults.standard.setValue(temp, forKey: "temperature")
                     })
-                Text(String(tokens))
+                Text(String(temp))
             }
             Spacer()
         }
